@@ -1,30 +1,30 @@
 # AI Agent Profile Builder
 
-1)**State Mutations Causing Re-Renders**
-selectedLayers.push(layerId)
-Fix: Always create a new array when updating state
-setSelectedLayers([...selectedLayers, layerId])
+1)**State Mutations Causing Re-Renders** <br/>
+selectedLayers.push(layerId) <br/>
+Fix: Always create a new array when updating state<br/>
+setSelectedLayers([...selectedLayers, layerId])<br/>
 
-2)**Unneccessary API calling on every selection**
-fetchApi()
-Each time user selects a skill or layer then the data were re-fetching that cause re-rendering even though it was not needed
+2)**Unneccessary API calling on every selection**<br/>
+fetchApi()<br/>
+Each time user selects a skill or layer then the data were re-fetching that cause re-rendering even though it was not needed<br/>
 Fix: Fetch the data once on mount useEffect(()=> {fetchApi()},[]) which only call once because it has epmty dependency array
 
-3)**Analytics heartbeat interval**
+3)**Analytics heartbeat interval**<br/>
    useEffect(() => {
     const analyticsInterval = setInterval(() => { ... }, 8000)
-}, [])
+}, [])<br/>
 
-If accidentally depend upon state inside interval like agentName without proper dependency it might log states value also , if interval was recreated unnecessarily could cause memory leaks 
+If accidentally depend upon state inside interval like agentName without proper dependency it might log states value also , <br/>if interval was recreated unnecessarily could cause memory leaks 
 
 Fix: Keep the interval once on mount , used functional updates which avoids repeated intervals and unnecessary re-renders
 
-Reduces inline styles to Modern Frameworks Tailwind Css
+Reduces inline styles to Modern Frameworks Tailwind Css<br/>
 
-4) **Structures of Project**
-   Intially it was all in one file app.tsx which looks so many messy of code that leads to difficult to debug the code or any    issues that aries during coding
+4) **Structures of Project**<br/>
+   Intially it was all in one file app.tsx which looks so many messy of code that leads to difficult to debug the code or any    issues that aries during coding<br/>
 
-   Divided a folder structures into a components and made a reusable components like Category and SortableItem which improve     readabilty and maintainability 
+   Divided a folder structures into a components and made a reusable components like Category and SortableItem which improve     readabilty and maintainability <br/>
  
    Configurations
    DropZone
@@ -32,36 +32,36 @@ Reduces inline styles to Modern Frameworks Tailwind Css
    Custom css for styling 
 
 
-  **AI Usage:**
+  **AI Usage:**<br/>
 
-  To use a Drag and Drop Components Initially I learned from youtube for dnd-kit and implement in this project using a CHAT     GPT because I recently learn this library so I took a help from AI
+  To use a Drag and Drop Components Initially I learned from youtube for dnd-kit and implement in this project using a CHAT     GPT because I recently learn this library so I took a help from AI<br/>
 
   Built a modern AI Agent Builder with an drag and drop interface using a dnd-kit replacing the original drop-down based UX 
-  fixed key performance issues like state mutation and unnecessary API re-fetching improving overall responsiveness
+  fixed key performance issues like state mutation and unnecessary API re-fetching improving overall responsiveness<br/>
 
-  # Components
+  # Components <br/>
 
-  **Configuration** 
+  **Configuration** <br/>
   This is the main builder 
   Displays all available data 
   Users Drag and Drop into right side selected area
 
 
-  **DropZone Components** 
+  **DropZone Components** <br/>
   This is the right side selection panel 
   Users selected Drop items here
   It dynamically updates the current agent configurations
 
-  **SortableItems**
+  **SortableItems** <br/>
   It makes items Draggable , Reorderable and Interactive built using dnd-kit
 
-  **Saved agent Section**
+  **Saved agent Section** <br/>
 
   This is the bottom panel 
   Load saved agent 
   Delete individual agent
 
-  **Toast notifications**
+  **Toast notifications** <br/>
 
   Shows error if fields are empty
   Confirms when agent is saved
