@@ -1,16 +1,16 @@
 # AI Agent Profile Builder
 
-1)**State Mutations Causing Re-Renders** <br/>
+1) **State Mutations Causing Re-Renders** <br/>
 selectedLayers.push(layerId) <br/>
 Fix: Always create a new array when updating state<br/>
 setSelectedLayers([...selectedLayers, layerId])<br/>
 
-2)**Unneccessary API calling on every selection**<br/>
+2) **Unneccessary API calling on every selection**<br/>
 fetchApi()<br/>
 Each time user selects a skill or layer then the data were re-fetching that cause re-rendering even though it was not needed<br/>
 Fix: Fetch the data once on mount useEffect(()=> {fetchApi()},[]) which only call once because it has epmty dependency array
 
-3)**Analytics heartbeat interval**<br/>
+3) **Analytics heartbeat interval**<br/>
    useEffect(() => {
     const analyticsInterval = setInterval(() => { ... }, 8000)
 }, [])<br/>
