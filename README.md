@@ -1,34 +1,70 @@
 # AI Agent Profile Builder
 
-Welcome to the AI Agent Profile Builder! 
+1) **State Mutations Causing Re-Renders** <br/>
+selectedLayers.push(layerId) <br/>
+Fix: Always create a new array when updating state<br/>
+setSelectedLayers([...selectedLayers, layerId])<br/>
 
-In this project, you will be taking over a partially built "AI Agent Builder" interface. The current state is functional in principle, but it's suffering from severe performance issues, logical bugs, and a lack of styling.
+2) **Unneccessary API calling on every selection**<br/>
+fetchApi()<br/>
+Each time user selects a skill or layer then the data were re-fetching that cause re-rendering even though it was not needed<br/>
+Fix: Fetch the data once on mount useEffect(()=> {fetchApi()},[]) which only call once because it has epmty dependency array
 
-Your goal is to transform this raw scaffold into a polished, performant, and visually appealing web application.
+3) **Analytics heartbeat interval**<br/>
+   useEffect(() => {
+    const analyticsInterval = setInterval(() => { ... }, 8000)
+}, [])<br/>
 
-## 🎯 Your Mission
+If accidentally depend upon state inside interval like agentName without proper dependency it might log states value also , <br/>if interval was recreated unnecessarily could cause memory leaks 
 
-1. **Fork this Repository:** Start by making a public fork of this repository to your own GitHub account.
-2. **Fix the Bugs:** We have intentionally left several React anti-patterns and performance bottlenecks in the codebase. Identify them, fix them, and explain your fixes in your PR description.
-3. **Elevate the UI/UX:** The current UI is a skeleton using basic dropdowns. We want you to wow us with a much more intuitive and user-friendly experience—**preferably implementing a drag-and-drop interface** to construct the agent instead of the current select menus. Implement a responsive, modern, and beautiful design. Feel free to use appropriate CSS frameworks (Tailwind, CSS Modules, Styled Components) and component libraries (like dnd-kit or react-beautiful-dnd) if you prefer.
-   - **⭐️ Design Process:** The strongest engineers don't just write code; they think about the user. While not strictly required, candidates who share a Figma file (or similar) detailing their thought process and design iterations before building stand out significantly from the crowd. Feel free to include a link in your PR description!
-4. **Submit a Pull Request:** Once you are satisfied with your work, open a Pull Request against this original repository.
-   - If you have created a design for this challenge. Make sure to link it here. If not, leave it as is.
+Fix: Keep the interval once on mount , used functional updates which avoids repeated intervals and unnecessary re-renders
 
-   **DESIGN LINK** = <public_url_here>
-   - **IMPORTANT:** In the PR, make sure to put your CV in the `public` folder (as a PDF). You can also present your CV in the frontend in a creative way; but the pdf in the `public` folder is a must.
+Reduces inline styles to Modern Frameworks Tailwind Css<br/>
 
-## 🤖 AI Tool Usage
-We are a very AI-positive company! The use of AI coding assistants, LLMs, or other supporting tools is highly encouraged and **will not harm your chances**. 
+4) **Structures of Project**<br/>
+   Intially it was all in one file app.tsx which looks so many messy of code that leads to difficult to debug the code or any    issues that aries during coding<br/>
 
-If you used any AI tools to assist you with this project (e.g., ChatGPT, Claude, GitHub Copilot, Cursor, etc.), please create a brief section in your PR description listing them and how you utilized them.
+   Divided a folder structures into a components and made a reusable components like Category and SortableItem which improve     readabilty and maintainability <br/>
+ 
+   Configurations
+   DropZone
+   SortableItem
+   Custom css for styling 
 
-## 📝 Evaluation Criteria
 
-We will be evaluating your submission based on:
-1. **React Fundamentals:** Did you identify and correctly fix the intentional performance and scoping bugs? Is your component state managed logically?
-2. **Code Quality:** Is your code clean, readable, and well-structured? Did you extract components appropriately?
-3. **Design & UX:** Does the final application look professional and feel good to use? Is it responsive?
-4. **Communication:** Does your PR description clearly explain the architectural decisions you made, the bugs you found, and how you fixed them?
+  **AI Usage:**<br/>
 
-Good luck! We can't wait to see what you build.
+  To use a Drag and Drop Components Initially I learned from youtube for dnd-kit and implement in this project using a CHAT     GPT because I recently learn this library so I took a help from AI<br/>
+
+  Built a modern AI Agent Builder with an drag and drop interface using a dnd-kit replacing the original drop-down based UX 
+  fixed key performance issues like state mutation and unnecessary API re-fetching improving overall responsiveness<br/>
+
+  # Components <br/>
+
+  **Configuration** <br/>
+  This is the main builder 
+  Displays all available data 
+  Users Drag and Drop into right side selected area
+
+
+  **DropZone Components** <br/>
+  This is the right side selection panel 
+  Users selected Drop items here
+  It dynamically updates the current agent configurations
+
+  **SortableItems** <br/>
+  It makes items Draggable , Reorderable and Interactive built using dnd-kit
+
+  **Saved agent Section** <br/>
+
+  This is the bottom panel 
+  Load saved agent 
+  Delete individual agent
+
+  **Toast notifications** <br/>
+
+  Shows error if fields are empty
+  Confirms when agent is saved
+  Improves overall UX instead of using alerts
+  
+
