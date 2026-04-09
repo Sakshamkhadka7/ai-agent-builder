@@ -90,9 +90,7 @@ const Contact = () => {
             <a href="#" className="text-gray-400 hover:text-indigo-500 transition">GitHub</a>
           </div>
 
-          <div className="mt-12 text-gray-500 text-sm">
-            &copy; {new Date().getFullYear()} AI Agent Builder. All rights reserved.
-          </div>
+    
         </div>
       </div>
 

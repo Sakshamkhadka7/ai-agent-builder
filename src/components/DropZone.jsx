@@ -6,7 +6,7 @@ const DropZone = ({ id, title, children }) => {
   return (
     <div
       ref={setNodeRef}
-      className={`border p-4 rounded-lg min-h-[300px] transition ${
+      className={`border p-4 rounded-lg min-h-[200px] md:min-h-[300px] transition ${
         isOver ? "bg-gray-800 border-indigo-500" : "border-gray-700"
       }`}
     >

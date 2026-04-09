@@ -3,13 +3,13 @@ import { useDraggable } from "@dnd-kit/core";
 const SortableItem = ({ id, data }) => {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id,
-    data, // 🔥 important
+    data
   });
 
   const style = {
     transform: transform
       ? `translate(${transform.x}px, ${transform.y}px)`
-      : undefined,
+      : undefined
   };
 
   return (
@@ -18,7 +18,10 @@ const SortableItem = ({ id, data }) => {
       style={style}
       {...listeners}
       {...attributes}
-      className="bg-gray-800 px-3 py-2 rounded-lg cursor-grab hover:bg-gray-700"
+      className="bg-gray-800 px-3 py-3 rounded-lg 
+      cursor-grab active:cursor-grabbing 
+      touch-none select-none 
+      hover:bg-gray-700"
     >
       {data.name}
     </div>
